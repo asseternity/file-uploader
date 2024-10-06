@@ -6,6 +6,7 @@
 <body>
     <% if (user) { %>
         <h1>Welcome back, <%= user.username $>!</h1>
+        <a href="/upload">Upload a file</a>
     <% } else { %>
         <h1>Please sign up</h1>
         <form action="/sign-up" method="POST">

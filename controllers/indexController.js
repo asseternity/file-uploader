@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getIndex = async (req, res, next) => {
-    res.render('index');
+    res.render('index', { user: req.user });
 }
 
 const postIndex = async (req, res, next) => {

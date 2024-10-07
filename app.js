@@ -63,7 +63,6 @@ passport.deserializeUser(async (id, done) => {
 // persistent sessions in DB
 const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const { PrismaClient } = require('@prisma/client');
 
 app.use(
   expressSession({

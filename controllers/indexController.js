@@ -1,12 +1,13 @@
 const bcryptjs = require('bcryptjs');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const passport = require('passport');
 
 const getIndex = async (req, res, next) => {
     res.render('index', { user: req.user });
 }
 
-const postIndex = async (req, res, next) => {
+const postSignUp = async (req, res, next) => {
     try {
         if (req.body.password !== req.body.cpassword) {
             return res.status(400).send('Passwords do not match');
@@ -26,4 +27,15 @@ const postIndex = async (req, res, next) => {
     }
 }
 
-module.exports = { getIndex, postIndex };
+const postLogIn = async (req, res, next) => {
+    try {
+        passport.authenticate("local", {
+            successRedirect: "/",
+            failureRedirect: "/",
+        })(req, res, next);
+    } catch(err) {
+        return next(err);
+    }
+}
+
+module.exports = { getIndex, postSignUp, postLogIn };

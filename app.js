@@ -86,8 +86,10 @@ app.use(
 // mounting routes
 const indexRoute = require('./routes/indexRoute');
 const uploadRoute = require('./routes/uploadRoute');
+const folderRoute = require('./routes/folderRoute');
 app.use('/', indexRoute);
 app.use('/upload', uploadRoute);
+app.use('/folder', folderRoute);
 
 // launch
 const port = process.env.PORT || 3000;

@@ -6,6 +6,7 @@
 <body>
     <% if (user) { %>
         <h1>Welcome back, <%= user.username %>!</h1>
+        <a href="/folder">Folders</a>
         <a href="/upload">Upload a file</a>
     <% } else { %>
         <h1>Please sign up or log in</h1>

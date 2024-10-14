@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Folders</title>
+</head>
+<body>
+    <% if (user) { %>
+        <h1>Folders</h1> 
+        <% if (user.folders.length !== 0) { %>
+            <ul>
+                <% for (let i = 0; i < user.folders.length; i++) { %>
+                    <li>
+                        <h2> <%= user.folders[i].name %> </h2>
+                            <form action="/folder/edit/<%= user.folders[i].id %>" method="GET" style="display:inline;">
+                                <button type="submit">Edit Folder</button>
+                            </form>
+                        <ul>
+                            <% for (let j = 0; j < user.folders[i].files.length; j++) { %>
+                                <p> <%= user.folders[i].files[j].filename %></p>
+                            <% } %>
+                        </ul>
+                    </li>
+                <% } %>
+            </ul>
+        <% } else { %>
+            <h2>You have not created any folders yet.</h2>
+        <% } %>
+        <br>
+        <h2>Create a new folder:</h2>
+        <form action="/folder/create" method="POST">
+            <label for="name">Folder name</label>
+            <input type="text" id="name" name="name" />
+            <button>Create folder</button>
+        </form>
+        <a href="/">Back to home</a>
+    <% } else { %>
+        <h1>Please log in to view this section.</h1>
+        <a href="/">Back to home</a>
+    <% } %>   
+</body>
+</html>

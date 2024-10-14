@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit folder</title>
+</head>
+<body>
+    <% if (folder) { %>
+        <h1>Edit folder</h1>
+        <form action="/folder/edit" method="POST">
+            <label for="name">New folder name</label>
+            <input type="text" id="name" name="name" />
+            <button>Update folder</button>
+        </form>
+    <% } else { %>
+        <h1>Something went wrong</h1>
+        <a href="/">Back to home</a>        
+    <% } %>
+</body>
+</html>

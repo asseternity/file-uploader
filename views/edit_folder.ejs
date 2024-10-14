@@ -6,7 +6,7 @@
 <body>
     <% if (folder) { %>
         <h1>Edit folder</h1>
-        <form action="/folder/edit" method="POST">
+        <form action="/folder/edit/<%= folder.id %>" method="POST">
             <label for="name">New folder name</label>
             <input type="text" id="name" name="name" />
             <button>Update folder</button>

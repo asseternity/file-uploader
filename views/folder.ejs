@@ -14,6 +14,10 @@
                             <form action="/folder/edit/<%= user.folders[i].id %>" method="GET" style="display:inline;">
                                 <button type="submit">Edit Folder</button>
                             </form>
+                            <form action="/folder/delete/<%= user.folders[i].id %>" method="POST" style="display:inline;">
+                                <button type="submit">Delete Folder</button>
+                            </form>
+                            <p>Deleting a folder will also delete all files inside of it!</p>
                         <ul>
                             <% for (let j = 0; j < user.folders[i].files.length; j++) { %>
                                 <p> <%= user.folders[i].files[j].filename %></p>

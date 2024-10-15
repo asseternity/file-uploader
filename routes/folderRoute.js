@@ -6,5 +6,6 @@ folderRoute.post('/create', folderController.postCreate);
 folderRoute.get('/', folderController.getIndex);
 folderRoute.get('/edit/:id', folderController.getEdit);
 folderRoute.post('/edit/:id', folderController.postEdit);
+folderRoute.post('/delete/:id', folderController.postDelete);
 
 module.exports = folderRoute;

@@ -60,4 +60,21 @@ const postEdit = async (req, res, next) => {
     }
 }
 
-module.exports = { postCreate, getIndex, getEdit, postEdit }
+const postDelete = async (req, res, next) => {
+    const param = req.params.id;
+    const folderId = parseInt(param);
+
+    try {
+        await prisma.file.deleteMany({
+            where: { folderId: folderId }
+        });
+        await prisma.folder.delete({
+            where: { id: folderId },
+        });
+        res.redirect('/folder');
+    } catch(err) {
+        return res.status(500).json({ error: "An error occurred when deleting the folder." })
+    }
+}
+
+module.exports = { postCreate, getIndex, getEdit, postEdit, postDelete }

@@ -4,11 +4,21 @@
     <title>File Upload</title>
 </head>
 <body>
-    <h1>Upload a file, <%= user.username %>!</h1>
-    <form action="/upload/profile" method="post" enctype="multipart/form-data">
-        <input type="file" name="avatar" />
-        <button>Upload</button>
-    </form>
+    <% if (user.folders.length !== 0) { %>
+        <h1>Upload a file, <%= user.username %>!</h1>
+        <form action="/upload/profile" method="post" enctype="multipart/form-data">
+            <input type="file" name="avatar" />          
+            <% for (let i = 0; i < user.folders.length; i++) { %>
+                <label>
+                    <input type="radio" name="uploadDBFolder" value="<%= user.folders[i].id %>" required>
+                    <%= user.folders[i].name %>
+                </label><br>
+            <% } %>
+            <button>Upload</button>
+        </form>
+    <% } else { %>
+        <h1>To upload file, please create a folder.</h1>
+    <% } %>
     <a href="/">Back home</a>
 </body>
 </html>

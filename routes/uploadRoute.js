@@ -34,15 +34,20 @@ uploadRoute.post('/profile', upload.single('avatar'), async function (req, res, 
     }
     const folderId = parseInt(req.body.uploadDBFolder);
     try {
-        await prisma.create.file({
+        await prisma.file.create({
             data: {
                 filename: req.file.filename,
                 filepath: path.join('uploads', req.file.filename),
-                userId: req.user.id,
                 folderId: folderId,
             }
-        })
+        });
+        const userWithFolders = await prisma.user.findUnique({
+            where: { id: req.user.id },
+            include: { folders: { include: { files: true }}}
+        });
+        res.render('folder', { user: userWithFolders });
     } catch(err) {
+        console.error(err);
         return res.status(500).json({ error: "An error occurred while saving the file data." })
     }
 });

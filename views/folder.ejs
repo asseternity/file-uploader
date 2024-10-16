@@ -22,7 +22,11 @@
                         <h4>Files in the folder:</h4>
                         <ul>
                             <% for (let j = 0; j < user.folders[i].files.length; j++) { %>
-                                <p> <%= user.folders[i].files[j].filename %></p>
+                                <p> file name: <%= user.folders[i].files[j].filename %> | size: <%= user.folders[i].files[j].filesize %> kb | uploaded at: <%= user.folders[i].files[j].createdAt %> </p>
+                                <form action="/upload/download/<%= user.folders[i].files[j].id %>" method="POST" style="display:inline;">
+                                    <label>Download the file</label>
+                                    <button type="submit">Download</button>
+                                </form>    
                             <% } %>
                         </ul>
                     </li>

@@ -33,11 +33,13 @@ uploadRoute.post('/profile', upload.single('avatar'), async function (req, res, 
         return res.status(400).json({ error: "No file uploaded." });
     }
     const folderId = parseInt(req.body.uploadDBFolder);
+    const fileSizeString = String(req.file.size);
     try {
         await prisma.file.create({
             data: {
                 filename: req.file.filename,
                 filepath: path.join('uploads', req.file.filename),
+                filesize: fileSizeString,
                 folderId: folderId,
             }
         });
@@ -49,6 +51,25 @@ uploadRoute.post('/profile', upload.single('avatar'), async function (req, res, 
     } catch(err) {
         console.error(err);
         return res.status(500).json({ error: "An error occurred while saving the file data." })
+    }
+});
+
+uploadRoute.post('/download/:fileId', async function (req, res, next) {
+    const fileId = parseInt(req.params.fileId);
+
+    try {
+        const file = await prisma.file.findUnique({
+            where: { id: fileId }
+        });
+        res.download(file.filepath, (err) => {
+            if (err) {
+                console.log(err);
+                return res.status(404).json({ error: "File not found." });
+            }
+        });
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({ error: "An error occurred while downloading the file." });
     }
 });
   
